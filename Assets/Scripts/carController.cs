@@ -7,13 +7,15 @@ public class carController : MonoBehaviour
 {
 
     public float carSpeed;
-    public float maxPos = 2.2f;
-
+   
     Vector3 position;
     public uiManager ui;
     public AudioManager am;
 
     private bool currentPlatformAndroid = false;
+    private float maxPos;
+
+    Vector3 cam;
 
     Rigidbody2D rb;
 
@@ -33,6 +35,10 @@ public class carController : MonoBehaviour
     void Start()
     {
         position = transform.position;
+
+        // Permite que o carro ajuste seu curso em diferentes resoluções e tipos de tela
+        cam = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z));
+        maxPos = -cam.x - 0.5f;
     }
 
 
@@ -44,12 +50,11 @@ public class carController : MonoBehaviour
         }
         else
         {
-            position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;
-            
+            position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;  
         }
 
         position = transform.position;
-        position.x = Mathf.Clamp(position.x, -2.2f, 2.2f);
+        position.x = Mathf.Clamp(position.x, -maxPos, maxPos);
         transform.position = position;
     }
 
