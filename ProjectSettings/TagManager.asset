@@ -8,6 +8,7 @@ TagManager:
   - SoundButton
   - SoundFxButton
   - Droid
+  - DontDestroy
   layers:
   - Default
   - TransparentFX
