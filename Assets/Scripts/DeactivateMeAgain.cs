@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DeactivateMeAgain : MonoBehaviour {
 
@@ -7,8 +8,32 @@ public class DeactivateMeAgain : MonoBehaviour {
     public static bool canSpawnCars;
     private float animationTime;
 
-	// Use this for initialization
-	void Start () {
+    public Sprite phase1Sprite;
+    public Sprite phase2Sprite;
+    public Sprite phase3Sprite;
+    public Sprite phase4Sprite;
+    public Sprite phase5Sprite;
+
+    void Start () {
+        switch (uiManager.phase)
+        {
+            case 1:
+                this.gameObject.GetComponent<Image>().sprite = phase1Sprite;
+                break;
+            case 2:
+                this.gameObject.GetComponent<Image>().sprite = phase2Sprite;
+                break;
+            case 3:
+                this.gameObject.GetComponent<Image>().sprite = phase3Sprite;
+                break;
+            case 4:
+                this.gameObject.GetComponent<Image>().sprite = phase4Sprite;
+                break;
+            case 5:
+                this.gameObject.GetComponent<Image>().sprite = phase5Sprite;
+                break;
+        }
+
         canSpawnCars = false;
         Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         StartCoroutine(spawnCars());

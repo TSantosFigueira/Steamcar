@@ -645,6 +645,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  phase1: {fileID: 2100000, guid: 985e2d02942932c45a779c46a0832de6, type: 2}
+  phase2: {fileID: 2100000, guid: 50524edacef53d043a5edc4e37fd328d, type: 2}
+  phase3: {fileID: 2100000, guid: 0a3d88c334ada154d89d5e801a303baa, type: 2}
+  phase4: {fileID: 2100000, guid: 11d171afe450ffa43b8aa85009038a96, type: 2}
+  phase5: {fileID: 2100000, guid: 6de5766876419b64fbcca460cd9c3d11, type: 2}
 --- !u!1 &1229568795
 GameObject:
   m_ObjectHideFlags: 0

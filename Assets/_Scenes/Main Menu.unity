@@ -303,6 +303,7 @@ GameObject:
   - 224: {fileID: 450683524}
   - 222: {fileID: 450683526}
   - 114: {fileID: 450683525}
+  - 95: {fileID: 450683527}
   m_Layer: 5
   m_Name: GameLogo
   m_TagString: Untagged
@@ -361,6 +362,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 450683523}
+--- !u!95 &450683527
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 450683523}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 663063be855d8b846bc87382edf6f7c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &478527252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,3 +1379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  phase1: {fileID: 2100000, guid: 985e2d02942932c45a779c46a0832de6, type: 2}
+  phase2: {fileID: 2100000, guid: 50524edacef53d043a5edc4e37fd328d, type: 2}
+  phase3: {fileID: 2100000, guid: 0a3d88c334ada154d89d5e801a303baa, type: 2}
+  phase4: {fileID: 2100000, guid: 11d171afe450ffa43b8aa85009038a96, type: 2}
+  phase5: {fileID: 2100000, guid: 6de5766876419b64fbcca460cd9c3d11, type: 2}
