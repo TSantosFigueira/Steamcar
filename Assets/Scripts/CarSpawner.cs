@@ -20,6 +20,8 @@ public class CarSpawner : MonoBehaviour {
     }
 	
 	void Update () {
+        if (!DeactivateMeAgain.canSpawnCars)
+            return;
 
 		timer -= Time.deltaTime;
 		if (timer <= 0) {

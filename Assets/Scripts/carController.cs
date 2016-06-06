@@ -12,12 +12,12 @@ public class carController : MonoBehaviour
     public uiManager ui;
     public AudioManager am;
 
+    public static int life;
+
     private bool currentPlatformAndroid = false;
     private float maxPos;
-
-    Vector3 cam;
-
-    Rigidbody2D rb;
+    private Vector3 cam;
+    private Rigidbody2D rb;
 
     void Awake()
     {
