@@ -14,7 +14,7 @@ public class MenuController : SceneController {
     public void DisablePauseAnimation(Animator anim)
     {
         anim.SetBool("IsDisplayed", false);
-        menuPanel.SetActive(true);
+        StartCoroutine(DisplayMenu());
     }
 
     public void EnablePauseAnimation(Animator anim)
@@ -26,5 +26,11 @@ public class MenuController : SceneController {
     public override void Play()
     {
         SceneManager.LoadScene("CharacterSelection");
+    }
+
+    IEnumerator DisplayMenu()
+    {
+        yield return new WaitForSeconds(0.5f);
+        menuPanel.SetActive(true);
     }
 }
