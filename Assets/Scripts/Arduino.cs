@@ -90,6 +90,7 @@ public class Arduino : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         Destroy(col.gameObject);
+
         if (col.gameObject.tag == "Enemy Car")
         {
             //Destroy(gameObject);
@@ -98,6 +99,7 @@ public class Arduino : MonoBehaviour
             //am.carSound.Stop();
             life--;
         }
+
         if (col.gameObject.tag == "Droid")
         {
             if (gender == "female")

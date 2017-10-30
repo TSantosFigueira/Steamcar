@@ -1,14 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.IO.Ports;
 
 public class MenuController : SceneController {
 
     public GameObject menuPanel;
 
+    SerialPort port = new SerialPort("COM3", 9600);
+
     void Start()
     {
+        port.Open();
+        port.ReadTimeout = 1;
+
         Time.timeScale = 1;
+    }
+
+    private void Update()
+    {
+        if (port.IsOpen)
+        {
+            // Executar ação aqui. Pimba!
+        }
     }
 
     public void DisablePauseAnimation(Animator anim)
