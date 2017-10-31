@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO.Ports;
+using System;
 
 public class Arduino : MonoBehaviour
 {
 
     public float carSpeed;
-
-    SerialPort port = new SerialPort("COM3", 9600);
 
     Vector3 position;
     public uiManager ui;
@@ -18,6 +16,9 @@ public class Arduino : MonoBehaviour
 
     public static int life;
     public static int score;
+
+    public SerialController serialController;
+    public List<SerialCommand> serialCommands = new List<SerialCommand>();
 
     private bool currentPlatformAndroid = false;
     private float maxPos;
@@ -36,14 +37,11 @@ public class Arduino : MonoBehaviour
         currentPlatformAndroid = false;
 #endif
 
+        CreateCommands();
     }
 
     void Start()
     {
-
-        port.Open();
-        port.ReadTimeout = 1;
-
         position = transform.position;
         score = 0;
         // Permite que o carro ajuste seu curso em diferentes resoluções e tipos de tela
@@ -67,17 +65,8 @@ public class Arduino : MonoBehaviour
 
     void Update()
     {
-        if (!currentPlatformAndroid && port.IsOpen)
+        if (!currentPlatformAndroid)
         {
-            try
-            {
-                Move(port.ReadByte());
-            }
-
-            catch (System.Exception)
-            {
-
-            }
             //position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;
         }
 
@@ -123,21 +112,34 @@ public class Arduino : MonoBehaviour
         rb.velocity = new Vector2(carSpeed, 0);
     }
 
-    public void Move(int direction)
-    {
-        if (direction == 1)
-        {
-            MoveRight();
-        }
-
-        else if (direction == 2)
-        {
-            MoveLeft();
-        }
-    }
-
     public void SetVelocityZero()
     {
         rb.velocity = Vector2.zero;
+    }
+
+    void OnMessageArrived(string msg)
+    {
+        if (msg == null) return;
+
+        // Check if the message is plain data or a connect/disconnect event
+        if (ReferenceEquals(msg, SerialController.SERIAL_DEVICE_CONNECTED))
+            print("Connection Established");
+        else if (ReferenceEquals(msg, SerialController.SERIAL_DEVICE_DISCONNECTED))
+            print("Connection attempt failed or disconnection detected");
+        else
+            print("Message received: " + msg);
+
+        for (int i = 0; i < serialCommands.Count; i++)
+        {
+            if (serialCommands[i].message == msg)
+            {
+                serialCommands[i].messageEvent.Invoke();
+            }
+        }
+    }
+
+    void CreateCommands()
+    {
+        serialCommands.Add(new SerialCommand("Botao1", MoveRight));
     }
 }
