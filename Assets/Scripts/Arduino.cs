@@ -65,10 +65,10 @@ public class Arduino : MonoBehaviour
 
     void Update()
     {
-        if (!currentPlatformAndroid)
-        {
+        //if (!currentPlatformAndroid)
+        //{
             //position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;
-        }
+        //}
 
         // Position Clamping
         position = transform.position;
@@ -131,7 +131,7 @@ public class Arduino : MonoBehaviour
 
         for (int i = 0; i < serialCommands.Count; i++)
         {
-            if (serialCommands[i].message == msg)
+            if (serialCommands[i].message == msg && serialCommands[i].messageEvent != null)
             {
                 serialCommands[i].messageEvent.Invoke();
             }
@@ -140,6 +140,9 @@ public class Arduino : MonoBehaviour
 
     void CreateCommands()
     {
-        serialCommands.Add(new SerialCommand("Botao1", MoveRight));
+        serialCommands.Add(new SerialCommand("Botao1_Down", MoveRight));
+        serialCommands.Add(new SerialCommand("Botao2_Down", MoveLeft));
+        serialCommands.Add(new SerialCommand("Botao1_Up", SetVelocityZero));
+        serialCommands.Add(new SerialCommand("Botao2_Up", SetVelocityZero));
     }
 }
