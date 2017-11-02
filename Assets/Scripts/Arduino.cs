@@ -67,13 +67,18 @@ public class Arduino : MonoBehaviour
     {
         //if (!currentPlatformAndroid)
         //{
-            //position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;
+        //position.x += Input.GetAxis("Horizontal") * carSpeed * Time.deltaTime;
         //}
 
         // Position Clamping
+
         position = transform.position;
         position.x = Mathf.Clamp(position.x, -maxPos, maxPos);
         transform.position = position;
+
+        if (Input.GetButton("RightButton")) MoveRight();
+        else if (Input.GetButton("LeftButton")) MoveLeft();
+        else { SetVelocityZero(); }
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -140,9 +145,8 @@ public class Arduino : MonoBehaviour
 
     void CreateCommands()
     {
-        serialCommands.Add(new SerialCommand("Botao1_Down", MoveRight));
-        serialCommands.Add(new SerialCommand("Botao2_Down", MoveLeft));
-        serialCommands.Add(new SerialCommand("Botao1_Up", SetVelocityZero));
-        serialCommands.Add(new SerialCommand("Botao2_Up", SetVelocityZero));
+        if (Input.GetButton("RightButton")) MoveRight();
+        else if (Input.GetButton("LeftButton")) MoveLeft();
+        else { SetVelocityZero(); }
     }
 }

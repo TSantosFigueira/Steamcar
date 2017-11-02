@@ -38,72 +38,72 @@ public class uiManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		scoreText.text = carController.score.ToString();
+		scoreText.text = Arduino.score.ToString();
 
         if(gender == "female")
         {
-            if(carController.life == 0)
+            if(Arduino.life == 0)
                 lifeImage.sprite = characters[1];
         }
         else
         {
-            if(carController.life == 1)
+            if(Arduino.life == 1)
                 lifeImage.sprite = characters[3];
-            if(carController.life == 0)
+            if(Arduino.life == 0)
                 lifeImage.sprite = characters[4];
         }
 
-        if(carController.life == 0 && carController.score < 700)
+        if (Arduino.life == 0 && Arduino.score < 700)
         {
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
-            gameOverPanel.GetComponentInChildren<Text>().text = carController.score.ToString();
+            gameOverPanel.GetComponentInChildren<Text>().text = Arduino.score.ToString();
         }
-        else if(carController.life == 0 && carController.score > 700)
+        else if (Arduino.life == 0 && Arduino.score > 700)
         {
             Time.timeScale = 0;
             nextLevelPanel.SetActive(true);
-            nextLevelPanel.GetComponentInChildren<Text>().text = carController.score.ToString();
+            nextLevelPanel.GetComponentInChildren<Text>().text = Arduino.score.ToString();
             switch (phase)
             {
                 case 1:
-                    if (carController.score >= 900)
+                    if (Arduino.score >= 900)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "1";
-                    else if (carController.score >= 800 && carController.score < 900)
+                    else if (Arduino.score >= 800 && Arduino.score < 900)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
-                    else if (carController.score >= 700 && carController.score < 800)
+                    else if (Arduino.score >= 700 && Arduino.score < 800)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "3";
                     break;
                 case 2:
-                    if (carController.score >= 1200)
+                    if (Arduino.score >= 1200)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "1";
-                    else if (carController.score >= 1100 && carController.score < 1200)
+                    else if (Arduino.score >= 1100 && Arduino.score < 1200)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
-                    else if (carController.score >= 1000 && carController.score < 1100)
+                    else if (Arduino.score >= 1000 && Arduino.score < 1100)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "3";
                     break;
                 case 3:
-                    if (carController.score >= 1500)
+                    if (Arduino.score >= 1500)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "1";
-                    else if (carController.score >= 1400 && carController.score < 1500)
+                    else if (Arduino.score >= 1400 && Arduino.score < 1500)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
-                    else if (carController.score >= 1300 && carController.score < 1400)
+                    else if (Arduino.score >= 1300 && Arduino.score < 1400)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
                     break;
                 case 4:
-                    if (carController.score >= 1800)
+                    if (Arduino.score >= 1800)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "1";
-                    else if (carController.score >= 1700 && carController.score < 1800)
+                    else if (Arduino.score >= 1700 && Arduino.score < 1800)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
-                    else if (carController.score >= 1600 && carController.score < 1700)
+                    else if (Arduino.score >= 1600 && Arduino.score < 1700)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
                     break;
                 case 5:
-                    if (carController.score >= 2100)
+                    if (Arduino.score >= 2100)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "1";
-                    else if (carController.score >= 2000 && carController.score < 2100)
+                    else if (Arduino.score >= 2000 && Arduino.score < 2100)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
-                    else if (carController.score >= 1900 && carController.score < 2000)
+                    else if (Arduino.score >= 1900 && Arduino.score < 2000)
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
                     break;
             }
@@ -118,7 +118,7 @@ public class uiManager : MonoBehaviour {
                 phase = 2;
                 break;
             case 2:
-                phase = 2;
+                phase = 3;
                 break;
             case 3:
                 phase = 4;
@@ -128,6 +128,9 @@ public class uiManager : MonoBehaviour {
                 break;
         }
         PlayerPrefs.SetInt("phase", phase);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+    public void Retry() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 

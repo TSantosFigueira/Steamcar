@@ -67,6 +67,10 @@ public class carController : MonoBehaviour
         position = transform.position;
         position.x = Mathf.Clamp(position.x, -maxPos, maxPos);
         transform.position = position;
+
+        if (Input.GetButton("RightButton")) MoveRight();
+        else if (Input.GetButton("LeftButton")) MoveLeft();
+        else { SetVelocityZero(); }
     }
 
     void OnCollisionEnter2D(Collision2D col)
