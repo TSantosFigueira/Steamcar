@@ -9,6 +9,9 @@ public class MenuController : SceneController {
     void Start()
     {
         Time.timeScale = 1;
+        if(Application.loadedLevel == 1) {
+            PlayerPrefs.DeleteKey("phase");
+        }
     }
 
     public void DisablePauseAnimation(Animator anim)

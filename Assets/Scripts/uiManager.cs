@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 public class uiManager : MonoBehaviour {
 	
 	public Text scoreText;
+
+    public Text highscoreText1;
+    public Text highscoreText2;
+    public Text highscoreText3;
+
     public GameObject pausePanel;
     public GameObject gameOverPanel;
     public GameObject nextLevelPanel;
@@ -18,6 +23,9 @@ public class uiManager : MonoBehaviour {
 
     void Start ()
     {
+        //PlayerPrefs.DeleteKey("highscore1"); PlayerPrefs.DeleteKey("highscore2"); PlayerPrefs.DeleteKey("highscore3");
+        highscoreText1.text += PlayerPrefs.GetFloat("highscore1"); highscoreText2.text += PlayerPrefs.GetFloat("highscore2");
+        highscoreText3.text += PlayerPrefs.GetFloat("highscore3");
         //if (PlayerPrefs.HasKey("phase"))
         //{
         //    PlayerPrefs.DeleteKey("phase");
@@ -53,13 +61,27 @@ public class uiManager : MonoBehaviour {
                 lifeImage.sprite = characters[4];
         }
 
-        if (Arduino.life == 0 && Arduino.score < 700)
-        {
+        if (Arduino.life == 0) {
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
             gameOverPanel.GetComponentInChildren<Text>().text = Arduino.score.ToString();
+            if(Arduino.score > PlayerPrefs.GetFloat("highscore3") && Arduino.score > PlayerPrefs.GetFloat("highscore2") && Arduino.score > PlayerPrefs.GetFloat("highscore1")) {
+                PlayerPrefs.SetFloat("highscore3", PlayerPrefs.GetFloat("highscore2"));
+                PlayerPrefs.SetFloat("highscore2", PlayerPrefs.GetFloat("highscore1"));
+                PlayerPrefs.SetFloat("highscore1", Arduino.score);
+            }
+            if (Arduino.life == 0 && Arduino.score > PlayerPrefs.GetFloat("highscore3") && Arduino.score > PlayerPrefs.GetFloat("highscore2") && Arduino.score < PlayerPrefs.GetFloat("highscore1"))
+            {
+                PlayerPrefs.SetFloat("highscore3", PlayerPrefs.GetFloat("highscore2"));
+                PlayerPrefs.SetFloat("highscore2", PlayerPrefs.GetFloat("highscore1"));
+                PlayerPrefs.SetFloat("highscore2", Arduino.score);
+            }
+            if (Arduino.life == 0 && Arduino.score > PlayerPrefs.GetFloat("highscore3") && Arduino.score < PlayerPrefs.GetFloat("highscore2") && Arduino.score < PlayerPrefs.GetFloat("highscore1"))
+            {
+                PlayerPrefs.SetFloat("highscore3", Arduino.score);
+            }
         }
-        else if (Arduino.life == 0 && Arduino.score > 700)
+        /*else if (Arduino.life == 0 && Arduino.score > 700)
         {
             Time.timeScale = 0;
             nextLevelPanel.SetActive(true);
@@ -107,7 +129,7 @@ public class uiManager : MonoBehaviour {
                         nextLevelPanel.GetComponentsInChildren<Text>()[1].text = "2";
                     break;
             }
-        }
+        }*/
 	}
 
 	public void Play()
